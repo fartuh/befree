@@ -2,7 +2,9 @@
 
 namespace App\Controllers;
 
-class Controller
+use \Core\Classes\Controller as BaseController;
+
+class Controller extends BaseController
 {
 
 }

@@ -5,10 +5,11 @@ namespace App\Controllers;
 class IndexController extends Controller
 {
     public function index(){
-        echo 'index';
+        $this->view('index');
     }
 
-    public function msg($p){
-        print_r($p);
+    public function post($params){
+        print_r($params);
     }
+
 }

@@ -2,6 +2,7 @@
 
 define('ROOT', __DIR__.'/');
 define('CONFIG', ROOT.'config/');
+define('PUB', ROOT.'public/');
 define('CORE', ROOT.'core/');
 define('CLASSES', CORE.'classes/');
 define('MODULES', CORE.'modules/');
@@ -12,10 +13,15 @@ require(CORE.'autoload.function.php');
 
 
 use \Core\Classes\URL as URL;
+use \Core\Classes\App as App;
 
 
 // Let's get URL from the GET parameter and give it to URL class
 $url = new URL($_GET['url']);
+
+
+// Require config
+$config['app'] = require(CONFIG.'app.php');
 
 
 // Require routes
@@ -33,23 +39,11 @@ if($matched == false){
     exit('not found');
 }
 
-
-// Let's get information
-$controller_method = $matched['controller'];
 $params = $matched['params'];
 
+// Let's get information
+$controller = $matched['controller'];
 
-// Getting names of a controller and a method
-$path = explode('@', $controller_method);
-$method = $path[1];
-$controller = '\App\Controllers\\'.$path[0];
-
-
-$app = new $controller();
-if($params == false)
-    $app->$method();
-else
-    $app->$method($params);
-
+App::findController($controller, $params);
 
 //var_dump($router);

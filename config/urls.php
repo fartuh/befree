@@ -7,8 +7,7 @@ $router = new Router;
 // Routes
 
 $router->get('', 'IndexController@index');
-$router->get('{id}', 'IndexController@msg');
-$router->get('users/{id}/msg', 'IndexController@msg');
+$router->get('{id}/post/{post_id}', 'IndexController@post');
 
 // End
 return $router;
