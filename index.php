@@ -34,7 +34,6 @@ if(METHOD == 'GET')
 else if(METHOD == 'POST')
     $matched = $router->matchPost($url->getUrl());
 
-
 if($matched == false){
     exit('not found');
 }
