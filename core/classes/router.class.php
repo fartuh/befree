@@ -6,7 +6,8 @@ class Router
 {
     private 
         $get = [],
-        $post = [];
+        $post = [],
+        $_404 = null;
 
     public function __construct(){
 
@@ -82,6 +83,14 @@ class Router
             return ['controller' => $controller, 'params' => $params];
         }
         return false;
+    }
+
+    public function _404($controller){
+        $this->_404 = $controller;
+    }
+
+    public function get404(){
+        return $this->_404;
     }
 
 }

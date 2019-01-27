@@ -37,7 +37,10 @@ else if(METHOD == 'POST')
     $matched = $router->matchPost($url->getUrl());
 
 if($matched == false){
-    exit('not found');
+    $controller = $router->get404();
+    if($controller == null)
+        exit('Error 404 not found');
+    $matched = ['controller' => $controller, 'params' => ['url' => $url->getUrl('string')]];
 }
 
 // DB connection

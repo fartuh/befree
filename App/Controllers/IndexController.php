@@ -10,4 +10,8 @@ class IndexController extends Controller
     public function index(){
         $this->view('index');
     }
+
+    public function _404($params){
+        echo 'Not found!';
+    }
 }
