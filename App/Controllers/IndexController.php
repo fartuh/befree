@@ -2,6 +2,9 @@
 
 namespace App\Controllers;
 
+use \Core\Classes\DB;
+use \App\Models\User;
+
 class IndexController extends Controller
 {
     public function index(){

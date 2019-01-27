@@ -14,6 +14,7 @@ require(CORE.'autoload.function.php');
 
 use \Core\Classes\URL as URL;
 use \Core\Classes\App as App;
+use \Core\Classes\DB as DB;
 
 
 // Let's get URL from the GET parameter and give it to URL class
@@ -38,6 +39,20 @@ if($matched == false){
     exit('not found');
 }
 
+// DB connection
+
+$db_config = require(CONFIG.'db.php');
+
+switch($db_config['db']){
+    case null:
+        break;
+    case 'mysql':
+        $mysql = $db_config['mysql'];
+        $dsn = 'mysql:host='.$mysql['host'].';dbname='.$mysql['name'].';charset='.$mysql['charset'];
+        DB::connect($dsn, $mysql['user'], $mysql['pass']);
+        break;
+}
+    
 $params = $matched['params'];
 
 // Let's get information
@@ -45,4 +60,4 @@ $controller = $matched['controller'];
 
 App::findController($controller, $params);
 
-//var_dump($router);
+DB::close();
