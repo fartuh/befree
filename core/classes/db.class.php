@@ -11,10 +11,14 @@ class DB
 
     private static $link = null;
 
-    public static function connect($dsn, $user = 'root', $pass = ''){
+    public static function connect($dsn, $user = 'root', $pass = '', $sqlite3 = false){
         try{
             if(self::$link != null) throw new PDOException('already connected to DB');
-            self::$link = new \PDO($dsn, $user, $pass);
+
+            if($sqlite3)
+                self::$link = new \PDO($dsn);
+            else
+                self::$link = new \PDO($dsn, $user, $pass);
         }
         catch(PDOException $e){
             echo $e->getMessage().'<br/>'.'line: '.$e->getLine();

@@ -10,4 +10,8 @@ return [
         'pass'    => 'root',
         'charset' => 'utf8'
     ],
+
+    'sqlite3' => [
+        'file' => 'data.sqlite3'
+    ],
 ];

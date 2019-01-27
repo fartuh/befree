@@ -3,6 +3,7 @@
 define('ROOT', __DIR__.'/');
 define('CONFIG', ROOT.'config/');
 define('PUB', ROOT.'public/');
+define('DB', ROOT.'db/sqlite3/');
 define('CORE', ROOT.'core/');
 define('CLASSES', CORE.'classes/');
 define('MODULES', CORE.'modules/');
@@ -50,6 +51,11 @@ switch($db_config['db']){
         $mysql = $db_config['mysql'];
         $dsn = 'mysql:host='.$mysql['host'].';dbname='.$mysql['name'].';charset='.$mysql['charset'];
         DB::connect($dsn, $mysql['user'], $mysql['pass']);
+        break;
+    case 'sqlite3':
+        $file = $db_config['sqlite3']['file'];
+        $dsn = 'sqlite:'.DB.'sqlite3'.$file;
+        DB::connect($dsn, '', '', true);
         break;
 }
     
