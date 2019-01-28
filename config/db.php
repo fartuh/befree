@@ -1,13 +1,13 @@
 <?php
 
 return [
-    'db' => 'mysql', 
+    'db' => null, 
 
     'mysql' => [
         'host'    => 'localhost',
         'name'    => 'befree',
         'user'    => 'root',
-        'pass'    => 'root',
+        'pass'    => '',
         'charset' => 'utf8'
     ],
 
