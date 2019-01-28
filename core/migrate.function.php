@@ -1,9 +1,23 @@
 <?php
 
 function migrate(){
-    $files = scandir(DB.'migrations/');
+    $files = scandir(DB.'Migrations/');
     foreach($files as $file){
         if($file == '.' || $file == '..' || explode('.', $file)[0] == '') continue;
-        require_once(DB.'migrations/'.$file);
+        $class = 'DB\\Migrations\\'.str_replace(['_', '.php'], '', $file);
+        $obj = new $class;
+
+        $obj->migrate();
     } 
+}
+
+function rollback(){
+    $files = scandir(DB.'Migrations/');
+        foreach($files as $file){
+            if($file == '.' || $file == '..' || explode('.', $file)[0] == '') continue;
+            $class = 'DB\\Migrations\\'.str_replace(['_', '.php'], '', $file);
+            $obj = new $class;
+
+            $obj->rollback();
+        }
 }
