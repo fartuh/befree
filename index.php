@@ -3,7 +3,7 @@
 define('ROOT', __DIR__.'/');
 define('CONFIG', ROOT.'config/');
 define('PUB', ROOT.'public/');
-define('DB', ROOT.'db/sqlite3/');
+define('DB', ROOT.'db/');
 define('CORE', ROOT.'core/');
 define('CLASSES', CORE.'classes/');
 define('MODULES', CORE.'modules/');
@@ -11,7 +11,10 @@ define('MODULES', CORE.'modules/');
 define('METHOD', $_SERVER['REQUEST_METHOD']);
 
 require(CORE.'autoload.function.php');
+require(CORE.'migrate.function.php');
 require(ROOT.'vendor/autoload.php');
+
+
 
 
 use \Core\Classes\URL as URL;
@@ -58,11 +61,16 @@ switch($db_config['db']){
         break;
     case 'sqlite3':
         $file = $db_config['sqlite3']['file'];
-        $dsn = 'sqlite:'.DB.'sqlite3'.$file;
+        $dsn = 'sqlite:'.DB.'sqlite3/'.$file;
         DB::connect($dsn, '', '', true);
         break;
 }
-    
+
+
+if(file_exists(ROOT.'migrate.php'))
+    require(ROOT.'migrate.php');
+   
+
 $params = $matched['params'];
 
 // Let's get information
