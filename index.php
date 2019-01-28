@@ -12,9 +12,6 @@ define('METHOD', $_SERVER['REQUEST_METHOD']);
 
 require(CORE.'autoload.function.php');
 require(CORE.'migrate.function.php');
-require(ROOT.'vendor/autoload.php');
-
-
 
 
 use \Core\Classes\URL as URL;

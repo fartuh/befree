@@ -9,5 +9,8 @@
             "email": "nikithobbieng@gmail.com"
         }
     ],
-    "require": {}
+    "require": {},
+    "require-dev": {
+        "phpunit/phpunit": "^7"
+    }
 }
