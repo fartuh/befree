@@ -2,6 +2,7 @@
 
 define('ROOT', __DIR__.'/');
 define('CONFIG', ROOT.'config/');
+define('APP', ROOT.'app/');
 define('PUB', ROOT.'public/');
 define('DB', ROOT.'db/');
 define('CORE', ROOT.'core/');
@@ -43,6 +44,35 @@ if($matched == false){
         exit('Error 404 not found');
     $matched = ['controller' => $controller, 'params' => ['url' => $url->getUrl('string')]];
 }
+
+// Middlewares
+
+$middlewares = scandir(APP . 'Middlewares');
+
+foreach($middlewares as $middleware){
+    if($middleware == '.' || $middleware == '..' || explode('.', $middleware)[0] == '') continue;
+
+    $class = '\\App\\Middlewares\\'.$middleware;
+
+    $class = str_replace('.php', '', $class);
+
+    $obj = new $class();
+    
+    $result = $obj->handle(['url' => $url->getUrl('string'), 'urlObject' => $url, 'controller' => $matched['controller']]);
+
+    if($result != true){
+        $mid = new \App\Middlewares\Middleware();
+        if(method_exists($mid, 'fail')){
+            $mid->fail();
+            exit();
+        } 
+        else{
+            echo "error in the middleware $middleware";
+            exit();
+        }
+    }
+}
+
 
 // DB connection
 
