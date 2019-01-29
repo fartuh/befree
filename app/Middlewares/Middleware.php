@@ -5,7 +5,7 @@ namespace App\Middlewares;
 class Middleware
 {
     public function handle($request){
-        return false;
+        return true;
     }
 
     public function fail(){
