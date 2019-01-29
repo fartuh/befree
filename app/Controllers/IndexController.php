@@ -8,10 +8,11 @@ use \App\Models\User;
 class IndexController extends Controller
 {
     public function index(){
+
         $this->view('index');
     }
 
     public function _404($params){
-        echo 'Not found!';
+        echo 'url ' . $params['url'] . ' doesn\'t exist';
     }
 }
