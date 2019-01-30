@@ -3,6 +3,7 @@
 namespace Core\Classes;
 
 use \Core\Classes\DB as DB;
+use \PDO;
 
 class Model
 {
@@ -18,14 +19,22 @@ class Model
     }
 
     public static function find($id){
-        $pdo = self::getDB();
         $table = static::$table;
-        $stmt = $pdo->prepare("SELECT * FROM $table WHERE id = ?");
+        $stmt = self::prepare("SELECT * FROM $table WHERE id = ?");
 
         $stmt->execute([$id]);
 
-        $data = $stmt->fetch(\PDO::FETCH_ASSOC);
+        $data = $stmt->fetch(PDO::FETCH_ASSOC);
 
+        return $data;
+    }
+
+    public static function get($get = '*'){
+        $table = static::$table;
+        $stmt = self::prepare("SELECT $get FROM $table");
+        $stmt->execute();
+
+        $data = $stmt->fetchall(PDO::FETCH_ASSOC);
         return $data;
     }
 
