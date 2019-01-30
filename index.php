@@ -47,21 +47,24 @@ if($matched == false){
 
 // Middlewares
 
+session_start();
+
 $middlewares = scandir(APP . 'Middlewares');
 
 foreach($middlewares as $middleware){
     if($middleware == '.' || $middleware == '..' || explode('.', $middleware)[0] == '') continue;
 
-    $class = '\\App\\Middlewares\\'.$middleware;
+    $middleware = str_replace('.php', '', $middleware);
 
-    $class = str_replace('.php', '', $class);
+    $class = '\\App\\Middlewares\\'.$middleware;
 
     $obj = new $class();
     
     $result = $obj->handle(['url' => $url->getUrl('string'), 'urlObject' => $url, 'controller' => $matched['controller']]);
 
     if($result != true){
-        $mid = new \App\Middlewares\Middleware();
+        $mid = '\\App\\Middlewares\\'.$middleware;
+        $mid = new $mid();
         if(method_exists($mid, 'fail')){
             $mid->fail();
             exit();
