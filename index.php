@@ -62,6 +62,8 @@ else{
     exit('This HTTP method is not allowed');
 }
 
+
+// Handling 404 error
 if($matched == false){
     if(DEBUG){
         Debug::_404($url);
@@ -75,7 +77,6 @@ if($matched == false){
 }
 
 // Middlewares
-
 session_start();
 
 $middlewares = scandir(APP . 'Middlewares');
@@ -107,7 +108,6 @@ foreach($middlewares as $middleware){
 
 
 // DB connection
-
 $config['db'] = require(CONFIG.'db.php');
 
 $db_config = $config['db'];
