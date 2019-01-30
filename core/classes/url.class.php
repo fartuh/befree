@@ -11,11 +11,12 @@ class URL
 
     private 
         $url,
-        $url_tokens;
+        $url_tokens,
+        $site;
 
     public function __construct($url){
         $this->url = strip_tags(trim($url));
-        $this->url_tokens = explode('/', $url);
+        $this->url_tokens = explode('/', trim($url));
     }
 
     public function getUrl($type = 'tokens'){

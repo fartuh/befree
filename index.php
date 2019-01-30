@@ -11,8 +11,10 @@ define('MODULES', CORE.'modules/');
 
 define('METHOD', $_SERVER['REQUEST_METHOD']);
 
+// Require functions
 require(CORE.'autoload.function.php');
 require(CORE.'migrate.function.php');
+require(CORE.'url.function.php');
 
 
 use \Core\Classes\URL as URL;
@@ -21,13 +23,14 @@ use \Core\Classes\DB as DB;
 use \Core\Classes\Debug as Debug;
 
 
-// Let's get URL from the GET parameter and give it to URL class
-$url = new URL($_GET['url']);
-
-
 // Require config
 $config['app'] = require(CONFIG.'app.php');
 define('DEBUG', $config['app']['debug']);
+
+
+// Let's get URL from the GET parameter and give it to URL class
+$url = new URL($_GET['url']);
+
 
 // Debugging
 
