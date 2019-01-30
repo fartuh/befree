@@ -33,10 +33,18 @@ $router = require(CONFIG.'urls.php');
 
 
 // Matching routes
-if(METHOD == 'GET')
+if(METHOD == 'GET'){
+    http_response_code(200);
     $matched = $router->matchGet($url->getUrl());
-else if(METHOD == 'POST')
+}
+else if(METHOD == 'POST'){
+    http_response_code(200);
     $matched = $router->matchPost($url->getUrl());
+}
+else{
+    http_response_code(405);
+    exit('This HTTP method is not allowed');
+}
 
 if($matched == false){
     $controller = $router->get404();
@@ -103,9 +111,11 @@ if(file_exists(ROOT.'migrate.php'))
 
 $params = $matched['params'];
 
-// Let's get information
+// Let's get the information
 $controller = $matched['controller'];
 
+// Looking for a controller that will handle the request
 App::findController($controller, $params);
 
+// Closing the db connection
 DB::close();
