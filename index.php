@@ -18,6 +18,7 @@ require(CORE.'migrate.function.php');
 use \Core\Classes\URL as URL;
 use \Core\Classes\App as App;
 use \Core\Classes\DB as DB;
+use \Core\Classes\Debug as Debug;
 
 
 // Let's get URL from the GET parameter and give it to URL class
@@ -26,6 +27,18 @@ $url = new URL($_GET['url']);
 
 // Require config
 $config['app'] = require(CONFIG.'app.php');
+define('DEBUG', $config['app']['debug']);
+
+// Debugging
+
+if(DEBUG){
+    error_reporting(E_ALL);
+    ini_set('display_errors', 1);
+}
+else{
+    error_reporting(0);
+    ini_set('display_errors', 0);
+}
 
 
 // Require routes
@@ -47,6 +60,11 @@ else{
 }
 
 if($matched == false){
+    if(DEBUG){
+        Debug::_404($url);
+        exit();
+    }
+
     $controller = $router->get404();
     if($controller == null)
         exit('Error 404 not found');
@@ -87,7 +105,9 @@ foreach($middlewares as $middleware){
 
 // DB connection
 
-$db_config = require(CONFIG.'db.php');
+$config['db'] = require(CONFIG.'db.php');
+
+$db_config = $config['db'];
 
 switch($db_config['db']){
     case null:
