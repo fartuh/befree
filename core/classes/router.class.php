@@ -21,6 +21,10 @@ class Router
         $this->post[$url] = $controller;
     }
 
+    public function group($prefix, $function){
+        $function($prefix);
+    }
+
     public function matchGet($url_arr){
         $set_urls = $this->get;
 
