@@ -7,6 +7,5 @@
 </head>
 <body>
     <h1>Befree</h1>
-    <h2>Free PHP framework</h2>
 </body>
 </html>
