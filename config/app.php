@@ -2,6 +2,6 @@
 
 return [
     'name'  => 'befree',
-    'url'   => 'http://localhost',
+    'url'   => 'http://localhost/befree',
     'debug' => true,
 ];
