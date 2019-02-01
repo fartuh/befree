@@ -17,6 +17,10 @@ class IndexController extends Controller
         echo 'dashboard';
     }
 
+    public function id($params){
+        return print_r($params);
+    }
+
     public function _404($params){
         echo 'url ' . $params['url'] . ' doesn\'t exist';
     }
