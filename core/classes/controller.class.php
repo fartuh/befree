@@ -9,12 +9,12 @@ class Controller
         return require(CONFIG.$type.'.php');
     }
 
-    protected function view($name, $params = []){
-        foreach($params as $key => $param){
-            $$key = $param;
+    protected function view($__name, $__params = []){
+        foreach($__params as $__key => $__param){
+            $$__key = $__param;
         }
         include(CORE . 'assets.function.php');
-        require(PUB . "views/$name.php");
+        require(PUB . "views/$__name.php");
     }
 
 }
